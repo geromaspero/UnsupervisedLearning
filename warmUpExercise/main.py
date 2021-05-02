@@ -87,5 +87,46 @@ scaled_properties_values = scaler.fit_transform(properties_values)
 
 
 
+#------------------ covariance matrix ------------------#
+
+df = pd.DataFrame(scaled_properties_values)
+
+covariance_matrix = pd.DataFrame.cov(df)
+
+print(covariance_matrix)
+
+
+# print("-----------------------------------------")
+
+data = np.array(scaled_properties_values)
+
+covariance_matrix2 = np.cov(scaled_properties_values.T) 
+
+print(covariance_matrix2)
+
+
+#------------------ covariance matrix ------------------#
+
+
+
+#------------------ eigenvalues (w) & eigenvectors (v) ------------------#
+
+w, v = np.linalg.eig(covariance_matrix)
+
+#sort in descending order
+w = sorted(w, reverse=True) 
+
+#print(w)
+
+# [3.3466903338935152, 1.2310909419122338, 1.1025679615273636, 0.798887683362183, 0.47480597493684956, 0.17492107429275486, 0.1302952893343626]
+
+
+
+
+#------------------ eigenvalues (w) & eigenvectors (v) ------------------#
+
+
+
+
 
 
