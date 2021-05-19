@@ -15,14 +15,13 @@ def randomize_pattern(letter, probability, conserve_original_letter):
                     result[i] = -1
                 else:
                     result[i] = 1
-    print("New Pattern")
-    print(result)
     return result
 
 def parse(file_name):  
     f = open(file_name, "r")
     aux = f.read()
     result = []
+    letter_counter = 0
     for i in range(len(aux)):
         character = aux[i]
         count = 0
@@ -33,14 +32,16 @@ def parse(file_name):
                 value = -1
             count += 1
             result = np.append(result, value)
-    return result.reshape(1, 25)
+        elif character == ',':
+            letter_counter += 1
+    return result.reshape(letter_counter, 25)
         
 
 pattern = parse("patterns.txt")
 hp = Hopfield(pattern)
 
-test = randomize_pattern("J",0.2,True)
-print(hp.train(test, 10))
+test_pattern = randomize_pattern("V",0.4,True)
+hp.train(test_pattern, 10)
 
 
 
