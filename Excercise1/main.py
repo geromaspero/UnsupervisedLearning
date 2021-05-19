@@ -4,6 +4,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from oja import Oja
 import matplotlib.pyplot as plt
+import json
 
 def load_csv(file_path): 
     
@@ -44,7 +45,11 @@ print_libarary_pca1(pca.components_[0], training_set, countries)
 
 
 oja_component = Oja()
-pca1 = oja_component.train(0.001, training_set, 1000)
+with open('config.json', 'r') as j:
+    json_data = json.load(j)
+    print(json_data)
+
+pca1 = oja_component.train(json_data['eta'], training_set, json_data['epochs'])
 if pca.components_[0][0] * pca1[0] < 0:
     pca1 = pca1 * -1
 oja_component.print_results(pca1, training_set, countries)

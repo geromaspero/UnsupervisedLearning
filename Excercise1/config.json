@@ -1,0 +1,8 @@
+{
+    "eta" : 0.001,
+    "epochs": 1000,
+    "neurons": 2,
+    "attributes_Q": 7,
+    "radius": 1,
+    "file_to_read": "europe.csv"
+}

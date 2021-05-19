@@ -14,10 +14,19 @@ from sklearn.decomposition import PCA
 import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
+import json
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn import datasets
+
+with open('config.json', 'r') as j:
+    json_data = json.load(j)
+    print(json_data)
+
 
 """Opening 'europe.csv'"""
 """Putting file contents in a Data Frame"""
-df = pd.read_csv('europe.csv')
+df = pd.read_csv(json_data['file_to_read'])
 print(df)
 
 """We need to separate countries names from all other properties"""
@@ -65,25 +74,23 @@ class Neuron(object):
 
 We create the main variables (epochs, neurons, attributes_Q, eta0, eta_arr, W0, W_arr, radius)
 """
-epochs = 1000
-neurons = 2
-attributes_Q = 7
+epochs = json_data['epochs']
+neurons = json_data['neurons']
+attributes_Q = json_data['attributes_Q']
 eta0 = np.random.rand()
 eta_arr = np.array([eta0])
-epsilon = 10**-5
 W0 = np.full((neurons,neurons), Neuron())
 for i in range(neurons):
   for j in range(neurons):
     W0[i][j] = Neuron(properties_norm[i*neurons + j])
 W_arr = np.array([W0])
-radius = 1
+radius = json_data['radius']
 
 print('epochs: ' ,epochs)
 print('neurons: ', neurons)
 print('attributes_Q: ', attributes_Q)
 print('eta0: ', eta0)
 print('eta_arr: ', eta_arr)
-print('epsilon: ', epsilon)
 print('Wo: ', W0)
 print('Warr: ', W_arr)
 print('radius: ', radius)
@@ -182,13 +189,6 @@ sns.heatmap(m, cmap=sns.color_palette("YlOrBr", as_cmap=True), vmin=0, vmax=15)
 plt.show()
 
 """We show the data separated in groups in the biplot"""
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn import datasets
-import plotly.express as px
 #------------------ data parsing ------------------#
 parsed_file = df
 #------------------ data parsing ------------------#
