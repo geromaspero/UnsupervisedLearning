@@ -1,4 +1,5 @@
 import numpy as np 
+import sys
 
 class Hopfield:
 
@@ -14,8 +15,7 @@ class Hopfield:
         # numpy.fill_diagonal(a, val, wrap=False)
         np.fill_diagonal(self.weights, 0)
 
-        print("printing weights")
-        print(self.weights)
+        
 
     # actualizar los elementos del vector de estado S(t)
     def update_S(self, current_S):
@@ -24,18 +24,8 @@ class Hopfield:
         h = np.dot(self.weights, current_S)
 
         # h = [ 1 ........ 25]
-        h = h.flatten()
+       # h = h.flatten()
 
-        print("gero:")
-        print(h)
-
-
-        print("printing len curren_S")
-        print(len(current_S) )
-
-
-        print("printing range len curren_S")
-        print( range(len(current_S)) )
 
 
         aux = np.array([])
@@ -48,32 +38,49 @@ class Hopfield:
                 new_value = current_S[i]
             aux = np.append(aux, new_value)
 
-        print("printing aux1")
-        print(aux)
+        
         return aux
 
 
+    def print_nice(self,pattern):
+        for i in range(5):
+            for j in range(5):
+                aux = pattern[i * 5 + j]
+                if aux == 1:
+                    character = "#"
+                else:
+                    character = "."
+                sys.stdout.write(character)
+            print("")
+        return
+
 
     def train(self, input_pattern, max_iterations):
+
+      
+
+        
+
         iteration = 0
         print("Época: ", iteration)
 
         #current_S --> 5x5
         current_S = input_pattern
-        print(current_S)
+        self.print_nice(current_S)
 
         iteration+=1
         print("Época: ", iteration)
 
         new_S = self.update_S(current_S)
-        print(new_S)
+        self.print_nice(new_S)
 
-        while iteration < max_iterations and not np.array_equiv(current_S, new_S ):   
+        while (not np.array_equal(current_S, new_S)) and iteration <= max_iterations:   
             current_S = new_S
             iteration += 1
             print("Época: ", iteration)
             new_S = self.update_S(current_S)
-            print(new_S)
-        return current_S
+            self.print_nice(new_S)
         
-            
+        return new_S
+
+    
