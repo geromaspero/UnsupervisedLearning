@@ -9,13 +9,8 @@ class Hopfield:
         self.N = len(patterns[0])
         # calculo W usando la forma que explico Juliana --> poner todos lo patrones en columnas 
         self.weights = np.dot(patterns.T, patterns) / self.N
-
-       
-
         # numpy.fill_diagonal(a, val, wrap=False)
         np.fill_diagonal(self.weights, 0)
-
-        
 
     # actualizar los elementos del vector de estado S(t)
     def update_S(self, current_S):
@@ -41,6 +36,13 @@ class Hopfield:
         
         return aux
 
+    def get_energy(self, S):
+        H = 0
+        for i in range(self.N):
+            for j in range(i + 1, self.N):
+                H -= self.weights[i][j] * S[i] * S[j]
+        return H
+
 
     def print_nice(self,pattern):
         for i in range(5):
@@ -56,29 +58,27 @@ class Hopfield:
 
 
     def train(self, input_pattern, max_iterations):
-
-      
-
         
-
         iteration = 0
-        print("Época: ", iteration)
+        print("Época ", iteration)
 
         #current_S --> 5x5
         current_S = input_pattern
+        print("H = ", self.get_energy(current_S))
         self.print_nice(current_S)
 
         iteration+=1
-        print("Época: ", iteration)
-
+        print("Época ", iteration)
         new_S = self.update_S(current_S)
+        print("H = ", self.get_energy(new_S))
         self.print_nice(new_S)
 
         while (not np.array_equal(current_S, new_S)) and iteration <= max_iterations:   
             current_S = new_S
             iteration += 1
-            print("Época: ", iteration)
+            print("Época ", iteration)
             new_S = self.update_S(current_S)
+            print("H = ", self.get_energy(new_S))
             self.print_nice(new_S)
         
         return new_S
