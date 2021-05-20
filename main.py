@@ -8,7 +8,7 @@ with open('config.json', 'r') as j:
       print(json_data)
 
 if json_data['exercise'] == 1:
-    ex1a()
+    #ex1a()
     ex1b()
 else:
     ex2()

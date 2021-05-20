@@ -41,7 +41,10 @@ def ex2():
     pattern = parse("patterns.txt")
     hp = Hopfield(pattern)
 
-    test_pattern = randomize_pattern("V",0.4,True)
+    #El true o false, indica si se respeta o no la letra
+    #al poner false, te cambia cualquier cosa.
+    #al poner true, los # de la letra original se mantienen intactos
+    test_pattern = randomize_pattern("L", 0.6, True)
     hp.train(test_pattern, 10)
 
 
