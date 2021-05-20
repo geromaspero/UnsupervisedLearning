@@ -183,6 +183,7 @@ def ex1a():
       average_euclidean_distance /= neighbors
       u_matrix[i][j] = average_euclidean_distance
   print(u_matrix)
+  sns.heatmap(u_matrix, cmap=sns.color_palette("YlOrBr", as_cmap=True))
 
   """We do a Heatmap"""
   fig, ax = plt.subplots()
