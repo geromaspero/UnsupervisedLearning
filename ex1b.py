@@ -54,5 +54,5 @@ def ex1b():
     if pca.components_[0][0] * pca1[0] < 0:
         pca1 = pca1 * -1
     oja_component.print_results(pca1, training_set, countries)
-
-
+    print("Diferencia entre calculo PCA Sklearn y OJA(error):")
+    print(np.abs(np.sum(pca1-pca.components_[0])))
