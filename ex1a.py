@@ -187,7 +187,7 @@ def ex1a():
 
   """We do a Heatmap"""
   fig, ax = plt.subplots()
-  sns.heatmap(m, cmap=sns.color_palette("YlOrBr", as_cmap=True), vmin=0, vmax=15)
+  sns.heatmap(m, cmap=sns.color_palette("YlOrBr", as_cmap=True), vmin=0, vmax=15, annot=True)
   plt.show()
 
   """We show the data separated in groups in the biplot"""
